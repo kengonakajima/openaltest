@@ -97,6 +97,34 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        In this function, we save the instance handle in a global variable and
 //        create and display the main program window.
 //
+ALuint bgmbuf, bgmsource;
+ALuint sebuf, sesource;
+
+void OpenALTest() {
+    
+    alutInit(NULL,0);    
+
+    bgmbuf = alutCreateBufferFromFile("mono16.wav");
+	ALenum e = alGetError();
+
+    alGenSources(1,&bgmsource);
+    alSourcei(bgmsource, AL_BUFFER, bgmbuf);
+    alSourcei(bgmsource, AL_LOOPING, AL_TRUE );
+    alSourcePlay(bgmsource);
+
+    sebuf = alutCreateBufferFromFile("blobloblll.wav");
+    alGenSources(1,&sesource);
+    alSourcei(sesource, AL_BUFFER, sebuf);
+    alSourcei(sesource, AL_LOOPING, AL_FALSE );
+
+    //        int r = random() % 20;
+    //        if(r == 0 ) {
+    //            fprintf(stderr, "SE\n");
+    //            alSourcePlay(sesource);
+
+    //    alutExit();
+}
+
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    HWND hWnd;
@@ -114,6 +142,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   //
+
+   OpenALTest();
 
    return TRUE;
 }
@@ -159,6 +190,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		break;
+	case WM_KEYDOWN:
+		alSourcePlay(sesource);
 		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);

@@ -41,21 +41,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;C:\Users\user\Documents\GitHub\freealut\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir)\..\..\freealut\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\OpenAL 1.1 SDK\libs\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;HAVE_STDINT_H;ALUT_BUILD_LIBRARY;HAVE_WINDOWS_H;HAVE_SLEEP;HAVE__STAT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,6 +86,15 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\freealut\src\alutBufferData.c" />
+    <ClCompile Include="..\..\freealut\src\alutCodec.c" />
+    <ClCompile Include="..\..\freealut\src\alutError.c" />
+    <ClCompile Include="..\..\freealut\src\alutInit.c" />
+    <ClCompile Include="..\..\freealut\src\alutInputStream.c" />
+    <ClCompile Include="..\..\freealut\src\alutLoader.c" />
+    <ClCompile Include="..\..\freealut\src\alutOutputStream.c" />
+    <ClCompile Include="..\..\freealut\src\alutUtil.c" />
+    <ClCompile Include="..\..\freealut\src\alutWaveform.c" />
     <ClCompile Include="OpenALPlay.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
